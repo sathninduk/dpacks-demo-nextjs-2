@@ -1,9 +1,27 @@
 "use client";
 
 import Image from "next/image";
+import { useState, useEffect } from "react";
 import { Input, Button, Typography } from "@material-tailwind/react";
+import axios from "axios";
 
 function Hero() {
+
+  const [hero1, setHero1] = useState("");
+  const [heroP1, setHeroP1] = useState("");
+
+  useEffect(() => {
+
+    axios.get("http://localhost:4000/api/v1/data-packets/fetch/a2f3a8df-c132-4561-8ba9-f088003f57bb/home/hero-1").then((response) => {
+      setHero1(response.data);
+    });
+
+    axios.get("http://localhost:4000/api/v1/data-packets/fetch/a2f3a8df-c132-4561-8ba9-f088003f57bb/home/hero-hero-pragraph").then((response) => {
+      setHeroP1(response.data);
+    });
+
+  }, []);
+
   return (
     <header className="bg-white p-8">
       <div className="container mx-auto grid h-full gap-10 min-h-[60vh] w-full grid-cols-1 items-center lg:grid-cols-2">
@@ -13,15 +31,13 @@ function Hero() {
             color="blue-gray"
             className="mb-4 lg:text-5xl !leading-tight text-3xl"
           >
-            Welcome to my Web <br /> Development Portofolio!
+            {hero1}
           </Typography>
           <Typography
             variant="lead"
             className="mb-4 !text-gray-500 md:pr-16 xl:pr-28"
           >
-            I&apos;m Lily Smith, a passionate web developer based in USA. Here,
-            you&apos;ll get a glimpse of my journey in the world of web
-            development, where creativity meets functionality.
+            {heroP1}
           </Typography>
           <div className="grid">
             <Typography
